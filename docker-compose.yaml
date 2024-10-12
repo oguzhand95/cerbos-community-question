@@ -1,0 +1,9 @@
+services:
+  cerbos-community-question:
+    container_name: cerbos-community-question
+    image: ghcr.io/cerbos/cerbos:latest
+    ports:
+      - "3592:3592"
+      - "3593:3593"
+    volumes:
+      - ./cerbos/policies:/policies

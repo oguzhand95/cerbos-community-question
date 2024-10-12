@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://api.cerbos.dev/latest/cerbos/policy/v1/Policy.schema.json
+# docs: https://docs.cerbos.dev/cerbos/latest/policies/resource_policies
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  resource: order
+  version: default
+  rules:
+    # allow if the principal roles consist the 'admin' OR the 'supervisor' role
+    - actions:
+        - update
+      effect: EFFECT_ALLOW
+      roles:
+        - supervisor
+        - admin
+
+    # allow if the principal roles consist the role `user` AND the R.attr.user_id is equal to P.id
+    - actions:
+        - update
+      effect: EFFECT_ALLOW
+      roles:
+        - user
+      condition:
+        match:
+          expr: request.resource.attr.user_id == request.principal.id
